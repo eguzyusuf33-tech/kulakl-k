@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bir Küçük Kulaklık Meselesi</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ffb6c1,#ffc0cb,#ffe4e1);
+    position:relative;
+}
+
+.container{
+    text-align:center;
+    z-index:2;
+    width:90%;
+}
+
+h1{
+    font-size:50px;
+    color:white;
+    margin-bottom:40px;
+    text-shadow:2px 2px 10px rgba(0,0,0,0.3);
+}
+
+button{
+    padding:15px 35px;
+    margin:10px;
+    border:none;
+    border-radius:15px;
+    font-size:22px;
+    cursor:pointer;
+    transition:0.3s;
+    background:white;
+    color:#ff4f81;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:#ff4f81;
+    color:white;
+}
+
+.emoji{
+    position:absolute;
+    font-size:30px;
+    animation: float 8s linear infinite;
+    opacity:0.8;
+}
+
+.message{
+    font-size:35px;
+    color:white;
+    line-height:1.5;
+    text-shadow:2px 2px 10px rgba(0,0,0,0.4);
+}
+
+.retryText{
+    margin-top:25px;
+    font-size:24px;
+    color:white;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh) rotate(0deg);
+    }
+    100%{
+        transform:translateY(-120vh) rotate(360deg);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="content">
+
+    <h1>Bir Küçük Kulaklık Meselesi</h1>
+
+    <button onclick="openChoice('zehra')">Zehra</button>
+    <button onclick="openChoice('sumeyra')">Sümeyra</button>
+
+</div>
+
+<script>
+
+const emojis = ["❤️","💕","💖","💘","🥰","😍","💞","💓"];
+
+for(let i=0;i<45;i++){
+
+    let emoji = document.createElement("div");
+
+    emoji.className = "emoji";
+
+    emoji.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+    emoji.style.left = Math.random()*100 + "vw";
+
+    emoji.style.animationDuration = (5 + Math.random()*5) + "s";
+
+    emoji.style.fontSize = (20 + Math.random()*25) + "px";
+
+    document.body.appendChild(emoji);
+}
+
+function openChoice(name){
+
+    document.getElementById("content").innerHTML = `
+
+        <h1>
+            ${name === 'zehra' ? 'Zehra Seçildi' : 'Sümeyra Seçildi'}
+        </h1>
+
+        <button onclick="wrongChoice('${name}')">
+            Kulaklık
+        </button>
+
+        <button onclick="correctChoice()">
+            ${name === 'zehra' ? 'Sümeyra' : 'Zehra'}
+        </button>
+
+    `;
+}
+
+function wrongChoice(name){
+
+    document.getElementById("content").innerHTML = `
+
+        <div class="message">
+            ❌ Yanlış seçim yaptın <br><br>
+            Kardeş sevgisi her şeyden üstündür ❤️
+        </div>
+
+        <div class="retryText">
+            Tekrar seçim yap bakalım 😄
+        </div>
+
+        <button onclick="openChoice('${name}')">
+            Tekrar Seç
+        </button>
+
+    `;
+}
+
+function correctChoice(){
+
+    document.getElementById("content").innerHTML = `
+
+        <div class="message">
+            🎉 Tebrikler doğru seçim yaptınız ❤️ <br><br>
+            Kardeşinizi hep böyle sevin 🥰💕
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+</html>
